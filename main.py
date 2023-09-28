@@ -11,11 +11,11 @@ BASE_URL = "https://api.prodia.com/v1"
 HEADERS = {
     "accept": "application/json",
     "content-type": "application/json",
-    "X-Prodia-Key": "4602a1db-de87-4878-a540-608033df5b5f"
+    "X-Prodia-Key": st.secrets["PRODIA_API_KEY"]
 }
 
 # Initialize Firebase
-cred = credentials.Certificate(r"C:\Users\aaron\Documents\Generating Images\ai-prompt-labs-by-ctf-firebase-adminsdk-1tm76-e8c304362b.json")
+cred = credentials.Certificate(st.secrets["FIREBASE_CRED"])
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
@@ -302,7 +302,7 @@ def admin_page():
 
     # Password Protection for Admin Access
     admin_password = st.text_input("Enter Admin Password:", type="password")
-    if admin_password != 'cr@ftthefutur3LTM':
+    if admin_password != st.secrets["ADMIN_PASSWORD"]:
         st.warning("Incorrect password!")
         return
 
