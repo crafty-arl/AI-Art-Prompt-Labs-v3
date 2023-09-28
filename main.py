@@ -23,6 +23,8 @@ service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
 service_account_info['private_key'] = service_account_info['private_key'].encode('utf-8').decode('unicode_escape')
 credentials = Credentials.from_service_account_info(service_account_info)
 db = firestore.Client(credentials=credentials)
+problematic_part = st.secrets["FIREBASE_CRED"].splitlines()[4][40:50]  # This gets the line 5 and 10 characters around column 46
+print(f"Problematic part: {problematic_part}")
 # Functions for Prodia API
 def generate_image(payload, model):
     response = requests.post(f"{BASE_URL}/sd/generate", json=payload, headers=HEADERS)
