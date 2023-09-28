@@ -4,6 +4,8 @@ import time
 import pandas as pd
 from datetime import datetime
 from google.cloud import firestore
+import os
+import json
 
 
 # Constants for Prodia API
