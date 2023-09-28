@@ -17,9 +17,9 @@ HEADERS = {
 }
 
 # Initialize Firebase
-service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
-db = firestore.Client.from_service_account_info(service_account_info)
-db = firestore.client()
+service_account_info = json.loads(st.secrets["FIREBASE_CRED"].encode('utf-8').decode('unicode_escape'))
+credentials = firestore.Credentials.from_service_account_info(service_account_info)
+db = firestore.Client(credentials=credentials)
 
 # Functions for Prodia API
 def generate_image(payload, model):
