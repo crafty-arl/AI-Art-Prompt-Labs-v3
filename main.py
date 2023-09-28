@@ -17,10 +17,8 @@ HEADERS = {
 }
 
 # Initialize Firebase
-cred = credentials.Certificate(st.secrets["FIREBASE_CRED"])
-if not firebase_admin._apps:
-    firebase_admin.initialize_app(cred)
-
+service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
+db = firestore.Client.from_service_account_info(service_account_info)
 db = firestore.client()
 
 # Functions for Prodia API
