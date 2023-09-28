@@ -7,6 +7,8 @@ from google.cloud import firestore
 from google.oauth2.service_account import Credentials
 import os
 import json
+import tempfile
+
 
 
 # Constants for Prodia API
@@ -20,13 +22,14 @@ HEADERS = {
 # Initialize Firebase
 print(st.secrets["FIREBASE_CRED"])
 
-def process_firebase_cred(cred):
-    """Reformat the private key to replace escaped newline with actual newline character."""
-    cred["private_key"] = cred["private_key"].replace("\\n", "\n")
-    return cred
+def save_firebase_cred_to_temp_file(cred_json):
+    """Save the Firebase credentials to a temporary file and return the file path."""
+    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as temp_file:
+        json.dump(cred_json, temp_file)
+        return temp_file.name
 
-service_account_info = process_firebase_cred(json.loads(st.secrets["FIREBASE_CRED"]))
-credentials = Credentials.from_service_account_info(service_account_info)
+firebase_cred_file_path = save_firebase_cred_to_temp_file(json.loads(st.secrets["FIREBASE_CRED"]))
+credentials = Credentials.from_service_account_file(firebase_cred_file_path)
 db = firestore.Client(credentials=credentials)
 
 
