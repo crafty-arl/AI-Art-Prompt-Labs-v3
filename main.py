@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from datetime import datetime
 from google.cloud import firestore
+from google.oauth2.service_account import Credentials
 import os
 import json
 
@@ -18,9 +19,8 @@ HEADERS = {
 
 # Initialize Firebase
 service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
-credentials = firestore.Credentials.from_service_account_info(service_account_info)
+credentials = Credentials.from_service_account_info(service_account_info)
 db = firestore.Client(credentials=credentials)
-
 # Functions for Prodia API
 def generate_image(payload, model):
     response = requests.post(f"{BASE_URL}/sd/generate", json=payload, headers=HEADERS)
