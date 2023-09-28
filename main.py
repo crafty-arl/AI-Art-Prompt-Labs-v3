@@ -9,6 +9,13 @@ import os
 import json
 import tempfile
 
+BASE_URL = "https://api.prodia.com/v1"
+HEADERS = {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "X-Prodia-Key": st.secrets["PRODIA_API_KEY"]
+}
+
 
 
 def save_firebase_cred_to_temp_file(cred_str):
@@ -27,6 +34,7 @@ firebase_cred_file_path = save_firebase_cred_to_temp_file(firebase_cred_str)
 # Use that file for Firebase authentication
 credentials = Credentials.from_service_account_file(firebase_cred_file_path)
 db = firestore.Client(credentials=credentials)
+
 
 
 
