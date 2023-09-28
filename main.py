@@ -17,7 +17,7 @@ HEADERS = {
 }
 
 # Initialize Firebase
-service_account_info = json.loads(st.secrets["FIREBASE_CRED"].replace("\\n", "\n"))
+service_account_info = json.loads(st.secrets["FIREBASE_CRED"].encode('utf-8').decode('unicode_escape'))
 db = firestore.Client.from_service_account_info(service_account_info)
 db = firestore.client()
 
