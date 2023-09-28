@@ -11,7 +11,6 @@ import tempfile
 
 
 
-# Constants for Prodia API
 BASE_URL = "https://api.prodia.com/v1"
 HEADERS = {
     "accept": "application/json",
@@ -31,6 +30,7 @@ def save_firebase_cred_to_temp_file(cred_json):
 firebase_cred_file_path = save_firebase_cred_to_temp_file(json.loads(st.secrets["FIREBASE_CRED"]))
 credentials = Credentials.from_service_account_file(firebase_cred_file_path)
 db = firestore.Client(credentials=credentials)
+
 
 
 # Functions for Prodia API
