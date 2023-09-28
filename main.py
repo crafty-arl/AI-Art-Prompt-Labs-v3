@@ -11,6 +11,7 @@ import tempfile
 
 
 
+# Constants for Prodia API
 BASE_URL = "https://api.prodia.com/v1"
 HEADERS = {
     "accept": "application/json",
@@ -18,18 +19,32 @@ HEADERS = {
     "X-Prodia-Key": st.secrets["PRODIA_API_KEY"]
 }
 
-# Initialize Firebase
-print(st.secrets["FIREBASE_CRED"])
+# Ensure the Firebase credentials JSON is a valid JSON string
+try:
+    firebase_cred_json = json.loads(st.secrets["FIREBASE_CRED"])
+except json.JSONDecodeError:
+    st.error("The provided Firebase credentials are not a valid JSON string.")
+    st.stop()
 
+# Save the Firebase credentials to a temporary file and return its path
 def save_firebase_cred_to_temp_file(cred_json):
-    """Save the Firebase credentials to a temporary file and return the file path."""
-    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as temp_file:
+    temp_file_path = tempfile.mktemp(suffix=".json")
+    with open(temp_file_path, 'w') as temp_file:
         json.dump(cred_json, temp_file)
-        return temp_file.name
+    return temp_file_path
 
-firebase_cred_file_path = save_firebase_cred_to_temp_file(json.loads(st.secrets["FIREBASE_CRED"]))
-credentials = Credentials.from_service_account_file(firebase_cred_file_path)
-db = firestore.Client(credentials=credentials)
+firebase_cred_file_path = save_firebase_cred_to_temp_file(firebase_cred_json)
+
+# Try to initialize the Firestore client using the temporary file
+try:
+    credentials = Credentials.from_service_account_file(firebase_cred_file_path)
+    db = firestore.Client(credentials=credentials)
+except Exception as e:
+    st.error(f"Failed to initialize Firestore client: {e}")
+    st.stop()
+
+# Now you can safely remove the temporary file
+os.remove(firebase_cred_file_path)
 
 
 
