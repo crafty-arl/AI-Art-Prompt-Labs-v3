@@ -3,8 +3,8 @@ import requests
 import time
 import pandas as pd
 from datetime import datetime
-import firebase_admin
-from firebase_admin import credentials, firestore
+from google.cloud import firestore
+
 
 # Constants for Prodia API
 BASE_URL = "https://api.prodia.com/v1"
