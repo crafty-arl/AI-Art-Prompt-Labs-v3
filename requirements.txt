@@ -1,4 +1,2 @@
-streamlit==1.2.0  # or your specific version
-requests==2.26.0  # or your specific version
-pandas==1.3.3    # or your specific version
-google-cloud-firestore  # or your specific version
+streamlit
+google-cloud-firestore
