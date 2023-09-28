@@ -20,11 +20,15 @@ HEADERS = {
 # Initialize Firebase
 print(st.secrets["FIREBASE_CRED"])
 
-service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
-print(service_account_info)
-service_account_info['private_key'] = service_account_info['private_key'].encode('utf-8').decode('unicode_escape')
+def process_firebase_cred(cred):
+    """Reformat the private key to replace escaped newline with actual newline character."""
+    cred["private_key"] = cred["private_key"].replace("\\n", "\n")
+    return cred
+
+service_account_info = process_firebase_cred(json.loads(st.secrets["FIREBASE_CRED"]))
 credentials = Credentials.from_service_account_info(service_account_info)
 db = firestore.Client(credentials=credentials)
+
 
 # Functions for Prodia API
 def generate_image(payload, model):
