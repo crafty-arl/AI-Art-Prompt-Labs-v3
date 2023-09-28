@@ -22,9 +22,9 @@ print(st.secrets["FIREBASE_CRED"])
 
 service_account_info = json.loads(st.secrets["FIREBASE_CRED"])
 print(service_account_info)
-#service_account_info['private_key'] = service_account_info['private_key'].encode('utf-8').decode('unicode_escape')
-#credentials = Credentials.from_service_account_info(service_account_info)
-#db = firestore.Client(credentials=credentials)
+service_account_info['private_key'] = service_account_info['private_key'].encode('utf-8').decode('unicode_escape')
+credentials = Credentials.from_service_account_info(service_account_info)
+db = firestore.Client(credentials=credentials)
 
 # Functions for Prodia API
 def generate_image(payload, model):
