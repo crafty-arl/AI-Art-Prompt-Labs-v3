@@ -355,7 +355,8 @@ def main():
     st.title("AI Art Generator and Showcase")
 
     logo_url = "https://uploads-ssl.webflow.com/632c8750a360f9a85a9a72a8/633a2238ab4d88614f19f399_%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20Craft%20The%20Future%20(1)-p-500.png"
-    st.image(logo_url, caption="Craft the Future", use_column_width=True, width=150)
+    st.sidebar.image(logo_url, caption="Craft the Future", use_column_width=True, width=75)
+
 
     # Initialize session state if not present
     if 'current_session' not in st.session_state:
