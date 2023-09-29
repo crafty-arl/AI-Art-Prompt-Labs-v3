@@ -376,7 +376,12 @@ def select_session():
     if "Default Session" not in collections:
         collections.insert(0, "Default Session")
     
+    # Check if 'current_session' has been initialized in session_state
+    if 'current_session' not in st.session_state:
+        st.session_state.current_session = "Default Session"
+    
     selected_session = st.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="session_selectbox")    
+    
     # Update session state with the selected session
     st.session_state.current_session = selected_session
     return selected_session
