@@ -316,7 +316,7 @@ def admin_page():
     sessions = [doc.to_dict() for doc in db.collection('sessions').stream()]
     session_names = [session['name'] for session in sessions]
 
-    # Display a dropdown to select the current session
+    # Display a dropdown to select the current session with a unique key
     current_session = st.selectbox("Select a session", ["Default Session"] + session_names, key="admin_session_select")
     
     # Store current session in session_state
@@ -324,9 +324,9 @@ def admin_page():
     st.write(f"Current session set to: {current_session}")
 
     # Create a new session
-    session_name = st.text_input("Name for the new session:")
+    session_name = st.text_input("Name for the new session:", key="admin_session_name")
     
-    if st.button("Start New Session"):
+    if st.button("Start New Session", key="admin_start_session_button"):
         if not session_name:
             st.warning("Please provide a session name!")
             return
@@ -347,6 +347,7 @@ def admin_page():
         # Refresh list of all sessions to update the dropdown
         sessions = [doc.to_dict() for doc in db.collection('sessions').stream()]
         session_names = [session['name'] for session in sessions]
+
 def terms_and_conditions():
     st.sidebar.title("TERMS AND CONDITIONS")
     st.write("""
