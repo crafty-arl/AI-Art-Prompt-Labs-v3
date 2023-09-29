@@ -16,24 +16,10 @@ HEADERS = {
     "X-Prodia-Key": st.secrets["PRODIA_API_KEY"]
 }
 
+# Initialize Firebase
+db = firestore.Client.from_service_account_json(r"C:\Users\aaron\Documents\Generating Images\ai-prompt-labs-by-ctf-firebase-adminsdk-1tm76-ce87831505.json")
 
 
-def save_firebase_cred_to_temp_file(cred_str):
-    """Save the Firebase credentials to a temporary file and return the file path."""
-    cred_json = json.loads(cred_str)
-    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as temp_file:
-        json.dump(cred_json, temp_file)
-        return temp_file.name
-
-# Retrieve the secret from Streamlit
-firebase_cred_str = st.secrets["FIREBASE_CRED"]
-
-# Save it to a temporary file
-firebase_cred_file_path = save_firebase_cred_to_temp_file(firebase_cred_str)
-
-# Use that file for Firebase authentication
-credentials = Credentials.from_service_account_file(firebase_cred_file_path)
-db = firestore.Client(credentials=credentials)
 
 
 
