@@ -90,7 +90,7 @@ def create_art_page():
     st.write(f"You have {st.session_state.generation_attempts} attempts left to generate an image you like.")
     
     model_options = ["dreamshaper_8.safetensors [9d40847d]", "deliberate_v2.safetensors [10ec4b29]", "anything-v4.5-pruned.ckpt [65745d25]"]
-    model = st.selectbox("Select a Model", model_options)
+    model = st.selectbox("Select a Model", model_options, key="model_selectbox")
     prompt = st.text_input("Positive Prompt", value="Example: Mystical forest at dawn")
     negative_prompt = st.text_input("Negative Prompt", value="Example: No animals")
 
@@ -150,7 +150,7 @@ def enter_contest_page():
         st.write("All artworks have been submitted to the contest.")
         return
 
-    selected_image_url, selected_prompt = st.selectbox("Select your original creation:", image_options, format_func=lambda x: x[1])
+        selected_image_url, selected_prompt = st.selectbox("Select your original creation:", image_options, format_func=lambda x: x[1], key="art_creation_selectbox")
 
     # Display the selected image
     st.image(selected_image_url, caption=selected_prompt, use_column_width=True)
@@ -166,11 +166,11 @@ def enter_contest_page():
         "The Future of Creativity",
         "The People's Choice"
     ]
-    selected_category = st.selectbox("Select the Category you want to enter:", contest_categories)
+     selected_category = st.selectbox("Select the Category you want to enter:", contest_categories, key="category_selectbox")
     
     # Dropdown to specify the social media platform
     social_platforms = ["Twitter", "Instagram", "LinkedIn", "Facebook", "Others"]
-    selected_platform = st.selectbox("Select your Social Media Platform:", social_platforms)
+    selected_platform = st.selectbox("Select your Social Media Platform:", social_platforms, key="social_platform_selectbox")
     
     social_handle = st.text_input(f"Your {selected_platform} Handle:")
     post_link = st.text_input("Link to your post on social media:")
@@ -220,7 +220,7 @@ def cast_vote_page():
 
         available_options = [option for option in all_artwork_options if option not in selected_artworks]
         
-        selected_artwork_url, selected_artwork_display, description = st.selectbox(f"Vote for {category}", available_options, format_func=lambda x: x[1], key=category)
+        selected_artwork_url, selected_artwork_display, description = st.selectbox(f"Vote for {category}", available_options, format_func=lambda x: x[1], key=f"vote_for_{category}_selectbox")
         
         # Display the selected image with description
         st.image(selected_artwork_url, caption=selected_artwork_display, use_column_width='auto')
@@ -233,7 +233,7 @@ def cast_vote_page():
         }
 
     social_platforms = ["Twitter", "LinkedIn", "Instagram"]
-    social_platform = st.selectbox("Your Social Media Platform:", social_platforms)
+    social_platform = st.selectbox("Your Social Media Platform:", social_platforms, key="voter_social_platform_selectbox")
     social_handle = st.text_input(f"Your {social_platform} Handle:")
     
     if st.button("Submit Votes"):
@@ -370,7 +370,7 @@ def select_session():
     if "Default Session" not in collections:
         collections.insert(0, "Default Session")
     
-    selected_session = st.sidebar.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="sidebar_session_select")    
+    selected_session = st.sidebar.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="sidebar_session_selectbox")    
     # Update session state with the selected session
     st.session_state.current_session = selected_session
     return selected_session
@@ -389,7 +389,8 @@ def main():
     current_session = select_session()  # Frontend session switcher
     st.sidebar.text(f"Current session: {current_session}")
     menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
-    choice = st.sidebar.selectbox("Menu", menu)
+    choice = st.sidebar.selectbox("Menu", menu, key="main_menu_selectbox")
+
     st.sidebar.markdown("""
     **Menu Options Explained:**
 
