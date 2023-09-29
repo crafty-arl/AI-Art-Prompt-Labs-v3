@@ -372,7 +372,7 @@ def admin_page():
         session_names = [session['name'] for session in sessions]
 
 def terms_and_conditions():
-    st.sidebar.title("TERMS AND CONDITIONS")
+
     st.write("""
     **Terms and Conditions of Participation**
 
