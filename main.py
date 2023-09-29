@@ -166,7 +166,7 @@ def enter_contest_page():
         "The Future of Creativity",
         "The People's Choice"
     ]
-     selected_category = st.selectbox("Select the Category you want to enter:", contest_categories, key="category_selectbox")
+    selected_category = st.selectbox("Select the Category you want to enter:", contest_categories, key="category_selectbox")
     
     # Dropdown to specify the social media platform
     social_platforms = ["Twitter", "Instagram", "LinkedIn", "Facebook", "Others"]
