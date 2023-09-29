@@ -380,6 +380,7 @@ def main():
         st.session_state.show_sidebar = False
 
     st.title("AI Art Generator and Showcase")
+    
     if st.button("Toggle Sidebar"):
         st.session_state.show_sidebar = not st.session_state.show_sidebar
 
@@ -389,10 +390,31 @@ def main():
     # Initialize session state if not present
     if 'current_session' not in st.session_state:
         st.session_state.current_session = "Default Session"
+    
     if st.session_state.show_sidebar:
-        # ... [rest of the code remains unchanged]
+        # Sidebar navigation
+        st.sidebar.title("AI Art Prompt Labs /w CTF")
+        st.sidebar.text("Select your event session:")
+        current_session = select_session()  # Frontend session switcher
+        st.sidebar.text(f"Current session: {current_session}")
+        menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
+        choice = st.sidebar.selectbox("Menu", menu, key="main_menu_selectbox")
 
-    # ... [rest of the if-elif block remains unchanged]
+        if choice == "TERMS AND CONDITIONS":
+            terms_and_conditions()
+        elif choice == "Prompt Gallery":
+            prompt_gallery_page()
+        elif choice == "Create Your Art":
+            create_art_page()
+        elif choice == "Enter Contest":
+            enter_contest_page()
+        elif choice == "Cast Your Vote":
+            cast_vote_page()
+        elif choice == "Live Votes Leaderboard":
+            live_votes_page()
+        elif choice == "Admin":
+            admin_page()
 
 if __name__ == "__main__":
     main()
+
