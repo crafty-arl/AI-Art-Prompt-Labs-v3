@@ -317,7 +317,7 @@ def admin_page():
     session_names = [session['name'] for session in sessions]
 
     # Display a dropdown to select the current session
-    current_session = st.selectbox("Select a session", ["Default Session"] + session_names)
+    current_session = st.selectbox("Select a session", ["Default Session"] + session_names, key="admin_session_select")
     
     # Store current session in session_state
     st.session_state.current_session = current_session
@@ -369,8 +369,7 @@ def select_session():
     if "Default Session" not in collections:
         collections.insert(0, "Default Session")
     
-    selected_session = st.sidebar.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session))
-    
+    selected_session = st.sidebar.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="sidebar_session_select")    
     # Update session state with the selected session
     st.session_state.current_session = selected_session
     return selected_session
