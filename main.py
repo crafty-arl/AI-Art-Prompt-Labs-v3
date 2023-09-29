@@ -152,9 +152,6 @@ def enter_contest_page():
 
     selected_image_url, selected_prompt = st.selectbox("Select your original creation:", image_options, format_func=lambda x: x[1], key="art_creation_selectbox")
 
-    if selected_image_url and selected_prompt:
-        st.image(selected_image_url, caption=selected_prompt, use_column_width=True)
-
     # Display the selected image
     st.image(selected_image_url, caption=selected_prompt, use_column_width=True)
 
@@ -162,35 +159,8 @@ def enter_contest_page():
     artwork_name = st.text_input("Name your Artwork:")
     description = st.text_area("Describe your artwork:", max_chars=150)
     
-    # Dropdown to specify the contest category
-    contest_categories = [
-        "Innovation Leadership",
-        "Diversity and Community Impact",
-        "The Future of Creativity",
-        "The People's Choice"
-    ]
-    selected_category = st.selectbox("Select the Category you want to enter:", contest_categories, key="category_selectbox")
-    
-    # Dropdown to specify the social media platform
-    social_platforms = ["Twitter", "Instagram", "LinkedIn", "Facebook", "Others"]
-    selected_platform = st.selectbox("Select your Social Media Platform:", social_platforms, key="social_platform_selectbox")
-    
-    social_handle = st.text_input(f"Your {selected_platform} Handle:")
-    post_link = st.text_input("Link to your post on social media:")
+    # Dropdown to specify the
 
-    if st.button("Enter the Contest"):
-        # Save the contest entry details to Firestore
-        contest_entries_ref.add({
-            'artwork_name': artwork_name,
-            'description': description,
-            'contest_category': selected_category,
-            'social_platform': selected_platform,
-            'social_handle': social_handle,
-            'post_link': post_link,
-            'image_url': selected_image_url,
-            'prompt': selected_prompt
-        })
-        st.success("You have successfully entered the contest!")
 
 # Page to cast vote for contest entries
 def cast_vote_page():
