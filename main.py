@@ -150,7 +150,10 @@ def enter_contest_page():
         st.write("All artworks have been submitted to the contest.")
         return
 
-        selected_image_url, selected_prompt = st.selectbox("Select your original creation:", image_options, format_func=lambda x: x[1], key="art_creation_selectbox")
+    selected_image_url, selected_prompt = st.selectbox("Select your original creation:", image_options, format_func=lambda x: x[1], key="art_creation_selectbox")
+
+    if selected_image_url and selected_prompt:
+        st.image(selected_image_url, caption=selected_prompt, use_column_width=True)
 
     # Display the selected image
     st.image(selected_image_url, caption=selected_prompt, use_column_width=True)
