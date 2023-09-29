@@ -382,25 +382,15 @@ def select_session():
     return selected_session
 # Main Streamlit App
 def main():
-    if 'show_sidebar' not in st.session_state:
-        st.session_state.show_sidebar = False
-
     st.title("AI Art Generator and Showcase")
 
+    # Display logo at the top of the page
     logo_url = "https://uploads-ssl.webflow.com/632c8750a360f9a85a9a72a8/633a2238ab4d88614f19f399_%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20Craft%20The%20Future%20(1)-p-500.png"
-    st.sidebar.image(logo_url, caption="Craft the Future", use_column_width=True, width=75)
+    st.image(logo_url, caption="Craft the Future", use_column_width=True, width=300)
 
-
-    # Initialize session state if not present
-    if 'current_session' not in st.session_state:
-        st.session_state.current_session = "Default Session"
-
-    # Display session and main menu on top
-    current_session = select_session()  # Frontend session switcher
-    st.write(f"Current session: {current_session}")
+    # Main menu at the top of the page
     menu = ["TERMS AND CONDITIONS", "Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
-
-    choice = st.sidebar.selectbox("Menu", menu, index=0, key="main_menu_selectbox")
+    choice = st.selectbox("Menu", menu, index=0, key="main_menu_selectbox")
 
     if choice == "TERMS AND CONDITIONS":
         terms_and_conditions()
