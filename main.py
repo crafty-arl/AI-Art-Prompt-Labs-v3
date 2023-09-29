@@ -129,6 +129,23 @@ def create_art_page():
 def enter_contest_page():
     st.header("Enter the Contest")
 
+    # Sidebar with contest rules and details
+    st.sidebar.title("Contest Rules and Details")
+    st.sidebar.write("""
+    **Contest Rules:**
+    - Each participant can submit only one artwork per category.
+    - The artwork must be generated using our platform.
+    - Any form of plagiarism will result in disqualification.
+
+    **Contest Categories:**
+    - **Innovation Leadership**: Artworks that showcase visionary concepts and futuristic ideas.
+    - **Diversity and Community Impact**: Artworks that represent diversity, unity, and positive community impact.
+    - **The Future of Creativity**: Artworks that represent the evolution and future trajectory of creativity.
+    - **The People's Choice**: Artworks chosen by public voting.
+
+    **Note:** Craft The Future reserves the right to the final say on all contest winners.
+    """)
+
     # Fetch all generated images from Firestore
     generated_art_ref = db.collection(st.session_state.current_session).document('generated_images').collection('images')
     submissions = [doc.to_dict() for doc in generated_art_ref.stream()]
