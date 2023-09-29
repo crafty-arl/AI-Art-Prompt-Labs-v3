@@ -398,8 +398,9 @@ def main():
     # Display session and main menu on top
     current_session = select_session()  # Frontend session switcher
     st.write(f"Current session: {current_session}")
-    menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
-    choice = st.selectbox("Menu", menu, key="main_menu_selectbox")
+    menu = ["TERMS AND CONDITIONS", "Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
+
+    choice = st.sidebar.selectbox("Menu", menu, index=0, key="main_menu_selectbox")
 
     if choice == "TERMS AND CONDITIONS":
         terms_and_conditions()
