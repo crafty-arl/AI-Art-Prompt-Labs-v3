@@ -17,7 +17,7 @@ HEADERS = {
 }
 
 # Initialize Firebase
-db = firestore.Client.from_service_account_json(r"C:\Users\aaron\Documents\Generating Images\ai-prompt-labs-by-ctf-firebase-adminsdk-1tm76-ce87831505.json")
+db = firestore.Client.from_service_account_json("ai-prompt-labs-by-ctf-firebase-adminsdk-1tm76-ce87831505.json")
 
 
 
