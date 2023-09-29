@@ -376,45 +376,50 @@ def select_session():
     return selected_session
 # Main Streamlit App
 def main():
+    if 'show_sidebar' not in st.session_state:
+    st.session_state.show_sidebar = False
+
     st.title("AI Art Generator and Showcase")
+    if st.button("Toggle Sidebar"):
+    st.session_state.show_sidebar = not st.session_state.show_sidebar
     logo_url = "https://uploads-ssl.webflow.com/632c8750a360f9a85a9a72a8/633a2238ab4d88614f19f399_%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20Craft%20The%20Future%20(1)-p-500.png"
     st.sidebar.image(logo_url, caption="Craft the Future", use_column_width=True, width=150)    
     # Initialize session state if not present
     if 'current_session' not in st.session_state:
         st.session_state.current_session = "Default Session"
-
-    # Sidebar navigation
-    st.sidebar.title("AI Art Prompt Labs /w CTF")
-    st.sidebar.text("Select your event session:")
-    current_session = select_session()  # Frontend session switcher
-    st.sidebar.text(f"Current session: {current_session}")
-    menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
-    choice = st.sidebar.selectbox("Menu", menu, key="main_menu_selectbox")
-
-    st.sidebar.markdown("""
-    **Menu Options Explained:**
-
-    - **Prompt Gallery**: View the gallery of generated art images based on user prompts.
-    - **Create Your Art**: Generate your own unique AI art based on positive and negative prompts.
-    - **Enter Contest**: Submit your generated art for a chance to win in various categories.
-    - **Cast Your Vote**: Vote for your favorite submitted artworks in different categories.
-    - **Live Votes Leaderboard**: See which artworks are leading in votes in real-time.
-    - **Admin**: Admin section for managing sessions.
-
-    ---
+    if st.session_state.show_sidebar:
+        # Sidebar navigation
+        st.sidebar.title("AI Art Prompt Labs /w CTF")
+        st.sidebar.text("Select your event session:")
+        current_session = select_session()  # Frontend session switcher
+        st.sidebar.text(f"Current session: {current_session}")
+        menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
+        choice = st.sidebar.selectbox("Menu", menu, key="main_menu_selectbox")
     
-    **Contest Entry Conditions:**
+        st.sidebar.markdown("""
+        **Menu Options Explained:**
     
-    All valid contest entries must be following [Craft The Future](https://www.linkedin.com/company/craft-the-future/?viewAsMember=true) on LinkedIn, [Instagram](https://www.instagram.com/_craftthefuture_/?img_index=1), and [Twitter](https://twitter.com/craftthefuture_). Make sure you are also following [FourevaMedia](https://twitter.com/FourevaMedia) on [Twitter](https://twitter.com/FourevaMedia), [Instagram](https://www.instagram.com/fourevamedia/), and [LinkedIn](https://www.linkedin.com/company/fourevamedia/).
-
-    **Showcase Raffle:**
+        - **Prompt Gallery**: View the gallery of generated art images based on user prompts.
+        - **Create Your Art**: Generate your own unique AI art based on positive and negative prompts.
+        - **Enter Contest**: Submit your generated art for a chance to win in various categories.
+        - **Cast Your Vote**: Vote for your favorite submitted artworks in different categories.
+        - **Live Votes Leaderboard**: See which artworks are leading in votes in real-time.
+        - **Admin**: Admin section for managing sessions.
     
-    All artworks submitted to the showcase will be entered into a raffle for CTF merch. Winners are drawn every hour. It's first-come, first-serve!
-
-    **Winning the Contest:**
-
-    If your artwork wins its category, you'll have the chance to have your art showcased as an LTM x CTF digital asset giveaway to all attendees on [OneOf Platform](https://www.oneof.com/app/).
-    """)
+        ---
+        
+        **Contest Entry Conditions:**
+        
+        All valid contest entries must be following [Craft The Future](https://www.linkedin.com/company/craft-the-future/?viewAsMember=true) on LinkedIn, [Instagram](https://www.instagram.com/_craftthefuture_/?img_index=1), and [Twitter](https://twitter.com/craftthefuture_). Make sure you are also following [FourevaMedia](https://twitter.com/FourevaMedia) on [Twitter](https://twitter.com/FourevaMedia), [Instagram](https://www.instagram.com/fourevamedia/), and [LinkedIn](https://www.linkedin.com/company/fourevamedia/).
+    
+        **Showcase Raffle:**
+        
+        All artworks submitted to the showcase will be entered into a raffle for CTF merch. Winners are drawn every hour. It's first-come, first-serve!
+    
+        **Winning the Contest:**
+    
+        If your artwork wins its category, you'll have the chance to have your art showcased as an LTM x CTF digital asset giveaway to all attendees on [OneOf Platform](https://www.oneof.com/app/).
+        """)
 
     if choice == "TERMS AND CONDITIONS":
         terms_and_conditions()
