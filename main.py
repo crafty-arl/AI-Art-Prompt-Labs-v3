@@ -370,7 +370,7 @@ def select_session():
     if "Default Session" not in collections:
         collections.insert(0, "Default Session")
     
-    selected_session = st.sidebar.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="sidebar_session_selectbox")    
+    selected_session = st.selectbox("Select a session", collections, index=collections.index(st.session_state.current_session), key="session_selectbox")    
     # Update session state with the selected session
     st.session_state.current_session = selected_session
     return selected_session
@@ -380,41 +380,34 @@ def main():
         st.session_state.show_sidebar = False
 
     st.title("AI Art Generator and Showcase")
-    
-    if st.button("Toggle Sidebar"):
-        st.session_state.show_sidebar = not st.session_state.show_sidebar
 
     logo_url = "https://uploads-ssl.webflow.com/632c8750a360f9a85a9a72a8/633a2238ab4d88614f19f399_%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20%5BOriginal%20size%5D%20Craft%20The%20Future%20(1)-p-500.png"
-    st.sidebar.image(logo_url, caption="Craft the Future", use_column_width=True, width=150)
+    st.image(logo_url, caption="Craft the Future", use_column_width=True, width=150)
 
     # Initialize session state if not present
     if 'current_session' not in st.session_state:
         st.session_state.current_session = "Default Session"
-    
-    if st.session_state.show_sidebar:
-        # Sidebar navigation
-        st.sidebar.title("AI Art Prompt Labs /w CTF")
-        st.sidebar.text("Select your event session:")
-        current_session = select_session()  # Frontend session switcher
-        st.sidebar.text(f"Current session: {current_session}")
-        menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
-        choice = st.sidebar.selectbox("Menu", menu, key="main_menu_selectbox")
 
-        if choice == "TERMS AND CONDITIONS":
-            terms_and_conditions()
-        elif choice == "Prompt Gallery":
-            prompt_gallery_page()
-        elif choice == "Create Your Art":
-            create_art_page()
-        elif choice == "Enter Contest":
-            enter_contest_page()
-        elif choice == "Cast Your Vote":
-            cast_vote_page()
-        elif choice == "Live Votes Leaderboard":
-            live_votes_page()
-        elif choice == "Admin":
-            admin_page()
+    # Display session and main menu on top
+    current_session = select_session()  # Frontend session switcher
+    st.write(f"Current session: {current_session}")
+    menu = ["TERMS AND CONDITIONS","Prompt Gallery", "Create Your Art", "Enter Contest", "Cast Your Vote", "Live Votes Leaderboard", "Admin"]
+    choice = st.selectbox("Menu", menu, key="main_menu_selectbox")
+
+    if choice == "TERMS AND CONDITIONS":
+        terms_and_conditions()
+    elif choice == "Prompt Gallery":
+        prompt_gallery_page()
+    elif choice == "Create Your Art":
+        create_art_page()
+    elif choice == "Enter Contest":
+        enter_contest_page()
+    elif choice == "Cast Your Vote":
+        cast_vote_page()
+    elif choice == "Live Votes Leaderboard":
+        live_votes_page()
+    elif choice == "Admin":
+        admin_page()
 
 if __name__ == "__main__":
     main()
-
