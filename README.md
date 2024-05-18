@@ -1,5 +1,5 @@
 ```markdown
-# ai art prompt labs by craft the future 🎨✨
+# ai art prompt labs by 0xgmcarl 🎨✨
 
 hey everyone! welcome to the ai art prompt labs, where creativity meets technology. let's dive into the world of ai-generated art and make something amazing together! 🚀
 
