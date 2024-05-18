@@ -61,7 +61,7 @@ if you do not agree with these terms, please refrain from using the platform.
 
 ## contact us ✉️
 
-have questions or need support? reach out to us at [support@craftthefuture.com](mailto:support@craftthefuture.com).
+have questions or need support? reach out to us at(mailto:carl@craftthefuture.xyz).
 
 let's craft the future together! 🌟
 ```
