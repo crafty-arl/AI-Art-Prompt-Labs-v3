@@ -18,6 +18,8 @@ ADMIN_PASSWORD = "your_admin_password"
 run the streamlit app:
 streamlit run app.py
 features 🌟
+
+
 1. prompt gallery 🖼️
 view all the ai-generated images along with their prompts. get inspired by what others have created and explore the endless possibilities of ai art.
 
